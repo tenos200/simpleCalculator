@@ -6,7 +6,6 @@ t1 = Entry(window, borderwidth=3, width=42)
 expression=""
 
 def button_add(number):
-
     current = t1.get()
     t1.delete(0, END)
     t1.insert(0, str(current) + str(number))
@@ -22,13 +21,14 @@ def clear():
 
 def equals():
     try:
-        total = str(eval(expression))
+        current = t1.get()
         t1.delete(0, END)
-        t1.insert(0, eval(expression))
-        
+        total = eval(current)
+        t1.insert(0, total)
     except:
         t1.delete(0, END)
         t1.insert(0, "Error")
+        expression = ""
 
 
 
