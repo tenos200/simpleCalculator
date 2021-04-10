@@ -1,91 +1,54 @@
 from tkinter import *
-
 window = Tk()
 window.title("Calculator")
 t1 = Entry(window, borderwidth=3, width=42)
 
+expression=""
+
 def button_add(number):
+
     current = t1.get()
     t1.delete(0, END)
     t1.insert(0, str(current) + str(number))
+    global expression
+    expression = t1.get()
 
 
 def clear():
     t1.delete(0, END)
     count = 0
-    return count
-
-def add():
-    number = t1.get()
-    global first_num
-    global math
-    math = "add"
-    first_num = int(number)
-    t1.delete(0, END)
-
-def subtract():
-    number = t1.get()
-    global first_num
-    global math
-    math = "sub"
-    first_num = int(number)
-    t1.delete(0, END)
-
-def multiply():
-    number = t1.get()
-    global first_num
-    global math
-    math = "mult"
-    first_num = int(number)
-    t1.delete(0, END)
-
-
-def division():
-    number = t1.get()
-    global first_num
-    global math
-    math = "div"
-    first_num = int(number)
-    t1.delete(0, END)
+    global expression
+    expression = ""
 
 def equals():
-    if math == "mult":
-        second_number = t1.get() 
+    try:
+        total = str(eval(expression))
         t1.delete(0, END)
-        t1.insert(0, int(first_num) * int(second_number))
-    if math == "div":
-        second_number = t1.get() 
+        t1.insert(0, eval(expression))
+        
+    except:
         t1.delete(0, END)
-        if int(second_number) == 0:
-            t1.insert(0,"Error")
-        else:
-            t1.insert(0, float(first_num) / float(second_number))
-    if math == "add":
-        second_number = t1.get() 
-        t1.delete(0, END)
-        t1.insert(0, int(first_num) + int(second_number))
-    if math == "sub":
-        second_number = t1.get() 
-        t1.delete(0, END)
-        t1.insert(0, int(first_num) - int(second_number))
+        t1.insert(0, "Error")
+
+
 
 #define the buttons for calculator
-divide_btn = Button(window, text="÷", padx=40, pady=20, command=division)
-multiply_btn = Button(window, text="x", padx=40, pady=20, command=multiply)
-subtract_btn = Button(window, text="-", padx=40, pady=20, command=subtract)
-add_btn = Button(window, text="+", padx=40, pady=20, command=add)
-equals_btn = Button(window, text="=", padx=40, pady=20, command=equals)
+divide_btn = Button(window, text="÷", padx=40, pady=20, command=lambda: button_add(" / "))
+multiply_btn = Button(window, text="x", padx=40, pady=20, command=lambda: button_add (" * "))
+subtract_btn = Button(window, text="-", padx=40, pady=20, command=lambda: button_add(" - "))
+add_btn = Button(window, text="+", padx=40, pady=20, command=lambda: button_add(" + "))
+equals_btn = Button(window, text="=", padx=40, pady=20, command=lambda: equals())
 clear_btn = Button(window, text = "c", padx=40, pady=20, command=clear)
-btn0 = Button(window, text = "0", padx=136, pady=20, command=lambda: button_add(0))
-btn1 = Button(window, text = "1", padx=40, pady=20, command=lambda: button_add(1))
-btn2 = Button(window, text = "2", padx=40, pady=20, command=lambda: button_add(2))
-btn3 = Button(window, text = "3", padx=40, pady=20, command=lambda: button_add(3))
-btn4 = Button(window, text = "4", padx=40, pady=20, command=lambda: button_add(4))
-btn5 = Button(window, text = "5", padx=40, pady=20, command=lambda: button_add(5))
-btn6 = Button(window, text = "6", padx=40, pady=20, command=lambda: button_add(6))
-btn7 = Button(window, text = "7", padx=40, pady=20, command=lambda: button_add(7))
-btn8 = Button(window, text = "8", padx=40, pady=20, command=lambda: button_add(8))
-btn9 = Button(window, text = "9", padx=40, pady=20, command=lambda: button_add(9))
+btn0 = Button(window, text = "0", padx=136, pady=20, command=lambda: button_add("0"))
+btn1 = Button(window, text = "1", padx=40, pady=20, command=lambda: button_add("1"))
+btn2 = Button(window, text = "2", padx=40, pady=20, command=lambda: button_add("2"))
+btn3 = Button(window, text = "3", padx=40, pady=20, command=lambda: button_add("3"))
+btn4 = Button(window, text = "4", padx=40, pady=20, command=lambda: button_add("4"))
+btn5 = Button(window, text = "5", padx=40, pady=20, command=lambda: button_add("5"))
+btn6 = Button(window, text = "6", padx=40, pady=20, command=lambda: button_add("6"))
+btn7 = Button(window, text = "7", padx=40, pady=20, command=lambda: button_add("7"))
+btn8 = Button(window, text = "8", padx=40, pady=20, command=lambda: button_add("8"))
+btn9 = Button(window, text = "9", padx=40, pady=20, command=lambda: button_add("9"))
         
 #define button placement
 equals_btn.grid(row=5, column=3)
@@ -105,7 +68,6 @@ btn9.grid(row=2, column=2)
 clear_btn.grid(row=1, column=2)
 divide_btn.grid(row=1, column=3)
 t1.grid(row=0, column=0, columnspan=4, ipady=10)
-
 
 window.resizable(0, 0)
 window.geometry("400x380")
